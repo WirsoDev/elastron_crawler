@@ -1,2 +1,10 @@
-## Script to extrate all wanted img fabrics from ELASTRON site
+## Script to extract all wanted fabrics (JPG) from ELASTRON site.
+
+<br>
+
+### ex:
+
+#### Collections = ['bronx', 'ascot'] --> main(collections)
+
+
 
