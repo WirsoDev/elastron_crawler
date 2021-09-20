@@ -5,10 +5,6 @@ import wget
 import os
 import sys
 
-fabrics = [
-    'paris'
-]
-
 
 def search_code(fab):
     '''if true returns search code for the requested fabric'''
@@ -87,5 +83,6 @@ def main(revs:list):
 
 
 if __name__ == '__main__':
-    main(['ascot'])
+    collections = ['ascot'] # test exemple
+    main(collections)
 
