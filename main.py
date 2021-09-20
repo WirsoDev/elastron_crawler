@@ -3,6 +3,7 @@ import re
 import json
 import wget
 import os
+import sys
 
 fabrics = [
     'paris'
@@ -17,14 +18,13 @@ def search_code(fab):
     conn = requests.get(link_to_search)
     conn_result = conn.text
     search_result = re.findall(r"(Resultados da pesquisa para:  )([a-zA-Z]*)", conn_result)
-    if search_result[0][1] == fab:
+    try:
         fab_cod = re.findall(r"(true&co=)([0-9]*)", conn_result)[0][1]
         print('found code for ' + fab + ' : ' + fab_cod)
         print('---' * 5)
         print('\n')
         return fab_cod
-    else:
-        print('Fabric not found!')
+    except IndexError:
         return False
 
 
@@ -72,16 +72,20 @@ def save_imgs(fabrics):
         print(f'{file_to_save} -- Saved!')
 
         
-def main():
-    rev = 'bronx'
-    cod = search_code(rev)
-    data = None
-    if cod:
-        data = ajax_json(cod)
-    links =  get_img_links(data)
-    save_imgs(links)
+def main(revs:list):
+    for rev in revs:
+        if len(rev) < 2:
+            return 
+        cod = search_code(rev)
+        data = None
+        if cod:
+            data = ajax_json(cod)
+            links =  get_img_links(data)
+            save_imgs(links)
+        else:
+            print(f'Cod for {rev} not found!')
 
 
 if __name__ == '__main__':
-    main()
+    main(['ascot'])
 
